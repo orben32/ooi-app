@@ -7,6 +7,7 @@ import {
   ColorPickerColorSpace,
   Divider,
   TextLabel,
+  TextInput,
 } from '@wix/wix-base-ui';
 
 const defaultSettingsValues = {
@@ -27,6 +28,10 @@ export default class SettingsPanel extends React.Component {
         ),
         fontSize: get(styleParams, 'fonts.fontSize.size', this.state.fontSize),
       });
+    });
+
+    window.Wix.Data.Public.get('name', { scope: 'COMPONENT' }, ({ name }) => {
+      this.setState({ name });
     });
   }
 
@@ -49,6 +54,11 @@ export default class SettingsPanel extends React.Component {
       },
     });
     this.setState({ fontSize });
+  };
+
+  updateData = data => {
+    window.Wix.Data.Public.set('name', data);
+    this.setState({ name: data });
   };
 
   render() {
@@ -78,6 +88,11 @@ export default class SettingsPanel extends React.Component {
             value={this.state.fontSize}
             onChange={this.updateHeaderFontSize}
           />
+        </section>
+        <Divider long={true} />
+        <section className={css.section}>
+          <TextLabel type="T02" value="Name" shouldTranslate={false} />
+          <TextInput value={this.state.name} onChange={this.updateData} />
         </section>
       </div>
     );

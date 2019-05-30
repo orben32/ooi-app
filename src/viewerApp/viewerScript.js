@@ -1,7 +1,7 @@
 import { createAppController } from '../components/app/appController';
 
-export const createControllers = ([appControllerConfig]) => {
-  return [createAppController(appControllerConfig)];
+export const createControllers = (appControllerConfigs) => {
+  return appControllerConfigs.map(config => createAppController(config))
 };
 
 const viewerScript = {

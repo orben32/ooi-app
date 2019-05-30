@@ -1,10 +1,12 @@
+const gugi = () => {
+  debugger;
+  console.log('gugi');
+};
+
 export async function createAppController({ setProps, config }) {
-  console.log(config);
   return {
     pageReady() {
-      setProps({
-        name: 'Orb',
-      });
+      setProps(Object.assign({ log: gugi }, config.publicData.COMPONENT));
     },
   };
 }
